@@ -3,6 +3,25 @@
   "description": "api to connect with docker cli and podman cli",
   "version": "0.1.0",
   "type": "module",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "lib/src/*"
+      ]
+    }
+  },
+  "exports": {
+    "./docker": {
+      "default": "./lib/esm/docker/docker.js",
+      "import": "./lib/esm/docker/docker.js",
+      "types": "./lib/esm/docker/docker.d.ts"
+    },
+    "./podman": {
+      "default": "./lib/esm/podman/podman.js",
+      "import": "./lib/esm/podman/podman.js",
+      "types": "./lib/esm/podman/podman.d.ts"
+    }
+  },
   "scripts": {
     "fmt": "prettier -w .",
     "prepack": "make build"
