@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "allowImportingTsExtensions": false,
+    "declaration": true
+  },
+  "exclude": ["./lib", "./src/lib", "./src/*/pull.ts", "./node_modules"]
+}
