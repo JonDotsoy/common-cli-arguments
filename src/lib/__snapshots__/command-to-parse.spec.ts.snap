@@ -1,0 +1,25 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should generate podman diff types 1`] = `"export type Args<T> = [options: T | null, containerImage: string, containerImage1: string | null]"`;
+
+exports[`should generate podman types 1`] = `"export type Args<T> = [options: T | null, command: string | null]"`;
+
+exports[`should generate podman attach types 1`] = `"export type Args<T> = [options: T | null, container: string]"`;
+
+exports[`should generate podman volume ls types 1`] = `"export type Args<T> = [options: T | null]"`;
+
+exports[`should generate podman volume create types 1`] = `"export type Args<T> = [options: T | null, name: string | null]"`;
+
+exports[`should generate podman run types 1`] = `"export type Args<T> = [options: T | null, image: string, commandArg: string | null]"`;
+
+exports[`should generate podman rm types 1`] = `"export type Args<T> = [options: T | null, container: string, ...container1: string[]]"`;
+
+exports[`should generate podman rmi types 1`] = `"export type Args<T> = [options: T | null, image: string, ...image1: string[]]"`;
+
+exports[`should generate podman build types 1`] = `"export type Args<T> = [options: T | null, context: string | null]"`;
+
+exports[`should generate podman cp types 1`] = `"export type Args<T> = [options: T | null, containerSrcPath: string, containerDestPath: string]"`;
+
+exports[`should generate podman tag types 1`] = `"export type Args<T> = [options: T | null, image: string, targetName: string, ...targetName1: string[]]"`;
+
+exports[`should generate podman untag types 1`] = `"export type Args<T> = [options: T | null, image: string, ...image1: string[]]"`;

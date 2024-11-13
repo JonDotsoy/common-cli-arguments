@@ -1,0 +1,20 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+[
+  {
+    "arg": {
+      "kind": "string[]",
+      "optional": true,
+    },
+    "containerImagePodNetworkVolume": {
+      "kind": "string",
+      "optional": false,
+    },
+    "options": {
+      "kind": "Options",
+      "optional": true,
+    },
+  },
+]
+`;
