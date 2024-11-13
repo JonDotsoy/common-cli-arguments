@@ -1,10 +1,11 @@
 {
   "name": "@jondotsoy/common-cli",
+  "description": "api to connect with docker cli and podman cli",
   "version": "0.1.0",
   "type": "module",
   "scripts": {
     "fmt": "prettier -w .",
-    "prepack": "make"
+    "prepack": "make build"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -19,5 +20,10 @@
   },
   "files": [
     "lib"
-  ]
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jondotsoy/common-cli-arguments.git"
+  }
 }
