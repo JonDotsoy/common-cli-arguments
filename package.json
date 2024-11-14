@@ -1,7 +1,7 @@
 {
   "name": "@jondotsoy/common-cli",
   "description": "api to connect with docker cli and podman cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "typesVersions": {
     "*": {
@@ -44,5 +44,15 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jondotsoy/common-cli-arguments.git"
-  }
+  },
+  "keywords": [
+    "docker",
+    "podman",
+    "cli",
+    "common",
+    "arguments",
+    "typescript",
+    "utils"
+  ],
+  "author": "Jonathan Delgado <jonathan.delgado@protonmail.com>"
 }
