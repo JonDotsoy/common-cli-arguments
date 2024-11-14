@@ -1,59 +1,16 @@
 export namespace modPodmanRename {
-  const conf = {
-    usages: ["podman rename CONTAINER NAME"],
-    usageMatrix: [
-      {
-        argsStr: ["CONTAINER", "NAME"],
-        args: [
-          {
-            keyword: "options",
-            literal: "options",
-            kind: "options",
-            isOptional: true,
-            isOptionsArg: true,
-            isSpread: false,
-          },
-          {
-            keyword: "container",
-            literal: "CONTAINER",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-          {
-            keyword: "name",
-            literal: "NAME",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          container: { kind: "string", optional: false },
-          name: { kind: "string", optional: false },
-        },
-        tsOptionsSort: ["options", "container", "name"],
-        tsOptionsStr: "{options?: Options;container: string;name: string;}",
-      },
-    ],
-    command: "podman rename",
-    options: {},
+  const conf = {"usages":["podman rename CONTAINER NAME"],"usageMatrix":[{"argsStr":["CONTAINER","NAME"],"args":[{"keyword":"options","literal":"options","kind":"options","isOptional":true,"isOptionsArg":true,"isSpread":false},{"keyword":"container","literal":"CONTAINER","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false},{"keyword":"name","literal":"NAME","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"container":{"kind":"string","optional":false},"name":{"kind":"string","optional":false}},"tsOptionsSort":["options","container","name"],"tsOptionsStr":"{options?: Options;container: string;name: string;}"}],"command":"podman rename","options":{}};
+
+  type Options = {
   };
 
-  type Options = {};
-
-  export type optionsArgument = {
-    options?: Options;
-    container: string;
-    name: string;
-  };
+  export type optionsArgument =
+    | {options?: Options;container: string;name: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -76,4 +33,5 @@ export namespace modPodmanRename {
 
     return parseValues;
   }
+
 }

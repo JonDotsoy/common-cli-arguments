@@ -1,43 +1,5 @@
 export namespace modPodmanVolumeCreate {
-  const conf = {
-    usages: ["podman volume create [options] [NAME]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]", "[NAME]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "name",
-            literal: "[NAME]",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: true,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          name: { kind: "string", optional: true },
-        },
-        tsOptionsSort: ["options", "name"],
-        tsOptionsStr: "{options?: Options;name?: string;}",
-      },
-    ],
-    command: "podman volume create",
-    options: {
-      driver: { keyName: "driver", flag: "--driver", typeValue: "string" },
-      ignore: { keyName: "ignore", flag: "--ignore" },
-      label: { keyName: "label", flag: "--label", typeValue: "stringArray" },
-      opt: { keyName: "opt", flag: "--opt", typeValue: "stringArray" },
-    },
-  };
+  const conf = {"usages":["podman volume create [options] [NAME]"],"usageMatrix":[{"argsStr":["[options]","[NAME]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"name","literal":"[NAME]","kind":"argument","isOptionsArg":false,"isOptional":true,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"name":{"kind":"string","optional":true}},"tsOptionsSort":["options","name"],"tsOptionsStr":"{options?: Options;name?: string;}"}],"command":"podman volume create","options":{"driver":{"keyName":"driver","flag":"--driver","typeValue":"string"},"ignore":{"keyName":"ignore","flag":"--ignore"},"label":{"keyName":"label","flag":"--label","typeValue":"stringArray"},"opt":{"keyName":"opt","flag":"--opt","typeValue":"stringArray"}}};
 
   type Options = {
     driver?: string; // string
@@ -46,11 +8,13 @@ export namespace modPodmanVolumeCreate {
     opt?: string[]; // stringArray
   };
 
-  export type optionsArgument = { options?: Options; name?: string };
+  export type optionsArgument =
+    | {options?: Options;name?: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -73,4 +37,5 @@ export namespace modPodmanVolumeCreate {
 
     return parseValues;
   }
+
 }

@@ -1,41 +1,18 @@
 export namespace modPodmanVolumePrune {
-  const conf = {
-    usages: ["podman volume prune [options]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-        ],
-        tsOptions: { options: { kind: "Options", optional: true } },
-        tsOptionsSort: ["options"],
-        tsOptionsStr: "{options?: Options;}",
-      },
-    ],
-    command: "podman volume prune",
-    options: {
-      filter: { keyName: "filter", flag: "--filter", typeValue: "stringArray" },
-      force: { keyName: "force", flag: "--force" },
-    },
-  };
+  const conf = {"usages":["podman volume prune [options]"],"usageMatrix":[{"argsStr":["[options]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true}},"tsOptionsSort":["options"],"tsOptionsStr":"{options?: Options;}"}],"command":"podman volume prune","options":{"filter":{"keyName":"filter","flag":"--filter","typeValue":"stringArray"},"force":{"keyName":"force","flag":"--force"}}};
 
   type Options = {
     filter?: string[]; // stringArray
     force?: boolean; // [null]
   };
 
-  export type optionsArgument = { options?: Options };
+  export type optionsArgument =
+    | {options?: Options;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -58,4 +35,5 @@ export namespace modPodmanVolumePrune {
 
     return parseValues;
   }
+
 }

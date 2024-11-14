@@ -147,7 +147,7 @@ export namespace name feature {
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),

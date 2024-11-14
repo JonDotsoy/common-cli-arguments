@@ -1,41 +1,18 @@
 export namespace modPodmanSystemDf {
-  const conf = {
-    usages: ["podman system df [options]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-        ],
-        tsOptions: { options: { kind: "Options", optional: true } },
-        tsOptionsSort: ["options"],
-        tsOptionsStr: "{options?: Options;}",
-      },
-    ],
-    command: "podman system df",
-    options: {
-      format: { keyName: "format", flag: "--format", typeValue: "string" },
-      verbose: { keyName: "verbose", flag: "--verbose" },
-    },
-  };
+  const conf = {"usages":["podman system df [options]"],"usageMatrix":[{"argsStr":["[options]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true}},"tsOptionsSort":["options"],"tsOptionsStr":"{options?: Options;}"}],"command":"podman system df","options":{"format":{"keyName":"format","flag":"--format","typeValue":"string"},"verbose":{"keyName":"verbose","flag":"--verbose"}}};
 
   type Options = {
     format?: string; // string
     verbose?: boolean; // [null]
   };
 
-  export type optionsArgument = { options?: Options };
+  export type optionsArgument =
+    | {options?: Options;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -58,4 +35,5 @@ export namespace modPodmanSystemDf {
 
     return parseValues;
   }
+
 }

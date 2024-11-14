@@ -1,56 +1,5 @@
 export namespace modPodmanStart {
-  const conf = {
-    usages: ["podman start [options] CONTAINER [CONTAINER...]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]", "CONTAINER", "[CONTAINER...]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "container",
-            literal: "CONTAINER",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-          {
-            keyword: "container",
-            literal: "[CONTAINER...]",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: true,
-            isSpread: true,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          container: { kind: "string[]", optional: false },
-        },
-        tsOptionsSort: ["options", "container"],
-        tsOptionsStr: "{options?: Options;container: string[];}",
-      },
-    ],
-    command: "podman start",
-    options: {
-      all: { keyName: "all", flag: "--all" },
-      attach: { keyName: "attach", flag: "--attach" },
-      detachKeys: {
-        keyName: "detachKeys",
-        flag: "--detach-keys",
-        typeValue: "[a-Z]",
-      },
-      filter: { keyName: "filter", flag: "--filter", typeValue: "stringArray" },
-      interactive: { keyName: "interactive", flag: "--interactive" },
-    },
-  };
+  const conf = {"usages":["podman start [options] CONTAINER [CONTAINER...]"],"usageMatrix":[{"argsStr":["[options]","CONTAINER","[CONTAINER...]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"container","literal":"CONTAINER","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false},{"keyword":"container","literal":"[CONTAINER...]","kind":"argument","isOptionsArg":false,"isOptional":true,"isSpread":true}],"tsOptions":{"options":{"kind":"Options","optional":true},"container":{"kind":"string[]","optional":false}},"tsOptionsSort":["options","container"],"tsOptionsStr":"{options?: Options;container: string[];}"}],"command":"podman start","options":{"all":{"keyName":"all","flag":"--all"},"attach":{"keyName":"attach","flag":"--attach"},"detachKeys":{"keyName":"detachKeys","flag":"--detach-keys","typeValue":"[a-Z]"},"filter":{"keyName":"filter","flag":"--filter","typeValue":"stringArray"},"interactive":{"keyName":"interactive","flag":"--interactive"}}};
 
   type Options = {
     all?: boolean; // [null]
@@ -60,11 +9,13 @@ export namespace modPodmanStart {
     interactive?: boolean; // [null]
   };
 
-  export type optionsArgument = { options?: Options; container: string[] };
+  export type optionsArgument =
+    | {options?: Options;container: string[];}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -87,4 +38,5 @@ export namespace modPodmanStart {
 
     return parseValues;
   }
+
 }

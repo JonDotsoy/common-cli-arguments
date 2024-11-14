@@ -1,37 +1,17 @@
 export namespace modPodmanMachineReset {
-  const conf = {
-    usages: ["podman machine reset [options]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-        ],
-        tsOptions: { options: { kind: "Options", optional: true } },
-        tsOptionsSort: ["options"],
-        tsOptionsStr: "{options?: Options;}",
-      },
-    ],
-    command: "podman machine reset",
-    options: { force: { keyName: "force", flag: "--force" } },
-  };
+  const conf = {"usages":["podman machine reset [options]"],"usageMatrix":[{"argsStr":["[options]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true}},"tsOptionsSort":["options"],"tsOptionsStr":"{options?: Options;}"}],"command":"podman machine reset","options":{"force":{"keyName":"force","flag":"--force"}}};
 
   type Options = {
     force?: boolean; // [null]
   };
 
-  export type optionsArgument = { options?: Options };
+  export type optionsArgument =
+    | {options?: Options;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -54,4 +34,5 @@ export namespace modPodmanMachineReset {
 
     return parseValues;
   }
+
 }

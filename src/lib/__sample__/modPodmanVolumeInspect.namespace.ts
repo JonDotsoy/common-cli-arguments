@@ -1,60 +1,18 @@
 export namespace modPodmanVolumeInspect {
-  const conf = {
-    usages: ["podman volume inspect [options] VOLUME [VOLUME...]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]", "VOLUME", "[VOLUME...]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "volume",
-            literal: "VOLUME",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-          {
-            keyword: "volume",
-            literal: "[VOLUME...]",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: true,
-            isSpread: true,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          volume: { kind: "string[]", optional: false },
-        },
-        tsOptionsSort: ["options", "volume"],
-        tsOptionsStr: "{options?: Options;volume: string[];}",
-      },
-    ],
-    command: "podman volume inspect",
-    options: {
-      all: { keyName: "all", flag: "--all" },
-      format: { keyName: "format", flag: "--format", typeValue: "string" },
-    },
-  };
+  const conf = {"usages":["podman volume inspect [options] VOLUME [VOLUME...]"],"usageMatrix":[{"argsStr":["[options]","VOLUME","[VOLUME...]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"volume","literal":"VOLUME","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false},{"keyword":"volume","literal":"[VOLUME...]","kind":"argument","isOptionsArg":false,"isOptional":true,"isSpread":true}],"tsOptions":{"options":{"kind":"Options","optional":true},"volume":{"kind":"string[]","optional":false}},"tsOptionsSort":["options","volume"],"tsOptionsStr":"{options?: Options;volume: string[];}"}],"command":"podman volume inspect","options":{"all":{"keyName":"all","flag":"--all"},"format":{"keyName":"format","flag":"--format","typeValue":"string"}}};
 
   type Options = {
     all?: boolean; // [null]
     format?: string; // string
   };
 
-  export type optionsArgument = { options?: Options; volume: string[] };
+  export type optionsArgument =
+    | {options?: Options;volume: string[];}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -77,4 +35,5 @@ export namespace modPodmanVolumeInspect {
 
     return parseValues;
   }
+
 }

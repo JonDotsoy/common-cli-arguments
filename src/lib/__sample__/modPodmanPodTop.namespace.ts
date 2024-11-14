@@ -1,60 +1,16 @@
 export namespace modPodmanPodTop {
-  const conf = {
-    usages: ["podman pod top [options] POD [FORMAT-DESCRIPTORS|ARGS...]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]", "POD", "[FORMAT-DESCRIPTORS|ARGS...]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "pod",
-            literal: "POD",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-          {
-            keyword: "formatDescriptorsArgs",
-            literal: "[FORMAT-DESCRIPTORS|ARGS...]",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: true,
-            isSpread: true,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          pod: { kind: "string", optional: false },
-          formatDescriptorsArgs: { kind: "string[]", optional: true },
-        },
-        tsOptionsSort: ["options", "pod", "formatDescriptorsArgs"],
-        tsOptionsStr:
-          "{options?: Options;pod: string;formatDescriptorsArgs?: string[];}",
-      },
-    ],
-    command: "podman pod top",
-    options: {},
+  const conf = {"usages":["podman pod top [options] POD [FORMAT-DESCRIPTORS|ARGS...]"],"usageMatrix":[{"argsStr":["[options]","POD","[FORMAT-DESCRIPTORS|ARGS...]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"pod","literal":"POD","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false},{"keyword":"formatDescriptorsArgs","literal":"[FORMAT-DESCRIPTORS|ARGS...]","kind":"argument","isOptionsArg":false,"isOptional":true,"isSpread":true}],"tsOptions":{"options":{"kind":"Options","optional":true},"pod":{"kind":"string","optional":false},"formatDescriptorsArgs":{"kind":"string[]","optional":true}},"tsOptionsSort":["options","pod","formatDescriptorsArgs"],"tsOptionsStr":"{options?: Options;pod: string;formatDescriptorsArgs?: string[];}"}],"command":"podman pod top","options":{}};
+
+  type Options = {
   };
 
-  type Options = {};
-
-  export type optionsArgument = {
-    options?: Options;
-    pod: string;
-    formatDescriptorsArgs?: string[];
-  };
+  export type optionsArgument =
+    | {options?: Options;pod: string;formatDescriptorsArgs?: string[];}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -77,4 +33,5 @@ export namespace modPodmanPodTop {
 
     return parseValues;
   }
+
 }

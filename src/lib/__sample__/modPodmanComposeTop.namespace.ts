@@ -1,48 +1,17 @@
 export namespace modPodmanComposeTop {
-  const conf = {
-    usages: ["docker compose top [SERVICES...]"],
-    usageMatrix: [
-      {
-        argsStr: ["[SERVICES...]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "options",
-            kind: "options",
-            isOptional: true,
-            isOptionsArg: true,
-            isSpread: false,
-          },
-          {
-            keyword: "services",
-            literal: "[SERVICES...]",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: true,
-            isSpread: true,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          services: { kind: "string[]", optional: true },
-        },
-        tsOptionsSort: ["options", "services"],
-        tsOptionsStr: "{options?: Options;services?: string[];}",
-      },
-    ],
-    command: "podman compose top",
-    options: { dryRun: { keyName: "dryRun", flag: "--dry-run" } },
-  };
+  const conf = {"usages":["docker compose top [SERVICES...]"],"usageMatrix":[{"argsStr":["[SERVICES...]"],"args":[{"keyword":"options","literal":"options","kind":"options","isOptional":true,"isOptionsArg":true,"isSpread":false},{"keyword":"services","literal":"[SERVICES...]","kind":"argument","isOptionsArg":false,"isOptional":true,"isSpread":true}],"tsOptions":{"options":{"kind":"Options","optional":true},"services":{"kind":"string[]","optional":true}},"tsOptionsSort":["options","services"],"tsOptionsStr":"{options?: Options;services?: string[];}"}],"command":"podman compose top","options":{"dryRun":{"keyName":"dryRun","flag":"--dry-run"}}};
 
   type Options = {
     dryRun?: boolean; // [null]
   };
 
-  export type optionsArgument = { options?: Options; services?: string[] };
+  export type optionsArgument =
+    | {options?: Options;services?: string[];}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -65,4 +34,5 @@ export namespace modPodmanComposeTop {
 
     return parseValues;
   }
+
 }

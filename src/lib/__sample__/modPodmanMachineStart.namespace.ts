@@ -1,52 +1,18 @@
 export namespace modPodmanMachineStart {
-  const conf = {
-    usages: ["podman machine start [options] [MACHINE]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]", "[MACHINE]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "machine",
-            literal: "[MACHINE]",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: true,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          machine: { kind: "string", optional: true },
-        },
-        tsOptionsSort: ["options", "machine"],
-        tsOptionsStr: "{options?: Options;machine?: string;}",
-      },
-    ],
-    command: "podman machine start",
-    options: {
-      noInfo: { keyName: "noInfo", flag: "--no-info" },
-      quiet: { keyName: "quiet", flag: "--quiet" },
-    },
-  };
+  const conf = {"usages":["podman machine start [options] [MACHINE]"],"usageMatrix":[{"argsStr":["[options]","[MACHINE]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"machine","literal":"[MACHINE]","kind":"argument","isOptionsArg":false,"isOptional":true,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"machine":{"kind":"string","optional":true}},"tsOptionsSort":["options","machine"],"tsOptionsStr":"{options?: Options;machine?: string;}"}],"command":"podman machine start","options":{"noInfo":{"keyName":"noInfo","flag":"--no-info"},"quiet":{"keyName":"quiet","flag":"--quiet"}}};
 
   type Options = {
     noInfo?: boolean; // [null]
     quiet?: boolean; // [null]
   };
 
-  export type optionsArgument = { options?: Options; machine?: string };
+  export type optionsArgument =
+    | {options?: Options;machine?: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -69,4 +35,5 @@ export namespace modPodmanMachineStart {
 
     return parseValues;
   }
+
 }

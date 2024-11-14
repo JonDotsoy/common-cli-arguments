@@ -1,48 +1,5 @@
 export namespace modPodmanComposeAttach {
-  const conf = {
-    usages: ["docker compose attach [OPTIONS] SERVICE"],
-    usageMatrix: [
-      {
-        argsStr: ["[OPTIONS]", "SERVICE"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[OPTIONS]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "service",
-            literal: "SERVICE",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          service: { kind: "string", optional: false },
-        },
-        tsOptionsSort: ["options", "service"],
-        tsOptionsStr: "{options?: Options;service: string;}",
-      },
-    ],
-    command: "podman compose attach",
-    options: {
-      detachKeys: {
-        keyName: "detachKeys",
-        flag: "--detach-keys",
-        typeValue: "string",
-      },
-      dryRun: { keyName: "dryRun", flag: "--dry-run" },
-      index: { keyName: "index", flag: "--index", typeValue: "int" },
-      noStdin: { keyName: "noStdin", flag: "--no-stdin" },
-      sigProxy: { keyName: "sigProxy", flag: "--sig-proxy" },
-    },
-  };
+  const conf = {"usages":["docker compose attach [OPTIONS] SERVICE"],"usageMatrix":[{"argsStr":["[OPTIONS]","SERVICE"],"args":[{"keyword":"options","literal":"[OPTIONS]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"service","literal":"SERVICE","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"service":{"kind":"string","optional":false}},"tsOptionsSort":["options","service"],"tsOptionsStr":"{options?: Options;service: string;}"}],"command":"podman compose attach","options":{"detachKeys":{"keyName":"detachKeys","flag":"--detach-keys","typeValue":"string"},"dryRun":{"keyName":"dryRun","flag":"--dry-run"},"index":{"keyName":"index","flag":"--index","typeValue":"int"},"noStdin":{"keyName":"noStdin","flag":"--no-stdin"},"sigProxy":{"keyName":"sigProxy","flag":"--sig-proxy"}}};
 
   type Options = {
     detachKeys?: string; // string
@@ -52,11 +9,13 @@ export namespace modPodmanComposeAttach {
     sigProxy?: boolean; // [null]
   };
 
-  export type optionsArgument = { options?: Options; service: string };
+  export type optionsArgument =
+    | {options?: Options;service: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -79,4 +38,5 @@ export namespace modPodmanComposeAttach {
 
     return parseValues;
   }
+
 }

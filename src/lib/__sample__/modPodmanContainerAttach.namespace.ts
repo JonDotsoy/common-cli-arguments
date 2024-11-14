@@ -1,46 +1,5 @@
 export namespace modPodmanContainerAttach {
-  const conf = {
-    usages: ["podman container attach [options] CONTAINER"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]", "CONTAINER"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "container",
-            literal: "CONTAINER",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          container: { kind: "string", optional: false },
-        },
-        tsOptionsSort: ["options", "container"],
-        tsOptionsStr: "{options?: Options;container: string;}",
-      },
-    ],
-    command: "podman container attach",
-    options: {
-      detachKeys: {
-        keyName: "detachKeys",
-        flag: "--detach-keys",
-        typeValue: "[a-Z]",
-      },
-      noStdin: { keyName: "noStdin", flag: "--no-stdin" },
-      sigProxy: { keyName: "sigProxy", flag: "--sig-proxy" },
-    },
-  };
+  const conf = {"usages":["podman container attach [options] CONTAINER"],"usageMatrix":[{"argsStr":["[options]","CONTAINER"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"container","literal":"CONTAINER","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"container":{"kind":"string","optional":false}},"tsOptionsSort":["options","container"],"tsOptionsStr":"{options?: Options;container: string;}"}],"command":"podman container attach","options":{"detachKeys":{"keyName":"detachKeys","flag":"--detach-keys","typeValue":"[a-Z]"},"noStdin":{"keyName":"noStdin","flag":"--no-stdin"},"sigProxy":{"keyName":"sigProxy","flag":"--sig-proxy"}}};
 
   type Options = {
     detachKeys?: unknown; // [a-Z]
@@ -48,11 +7,13 @@ export namespace modPodmanContainerAttach {
     sigProxy?: boolean; // [null]
   };
 
-  export type optionsArgument = { options?: Options; container: string };
+  export type optionsArgument =
+    | {options?: Options;container: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -75,4 +36,5 @@ export namespace modPodmanContainerAttach {
 
     return parseValues;
   }
+
 }

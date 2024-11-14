@@ -1,46 +1,16 @@
 export namespace modPodmanVolumeExists {
-  const conf = {
-    usages: ["podman volume exists VOLUME"],
-    usageMatrix: [
-      {
-        argsStr: ["VOLUME"],
-        args: [
-          {
-            keyword: "options",
-            literal: "options",
-            kind: "options",
-            isOptional: true,
-            isOptionsArg: true,
-            isSpread: false,
-          },
-          {
-            keyword: "volume",
-            literal: "VOLUME",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          volume: { kind: "string", optional: false },
-        },
-        tsOptionsSort: ["options", "volume"],
-        tsOptionsStr: "{options?: Options;volume: string;}",
-      },
-    ],
-    command: "podman volume exists",
-    options: {},
+  const conf = {"usages":["podman volume exists VOLUME"],"usageMatrix":[{"argsStr":["VOLUME"],"args":[{"keyword":"options","literal":"options","kind":"options","isOptional":true,"isOptionsArg":true,"isSpread":false},{"keyword":"volume","literal":"VOLUME","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"volume":{"kind":"string","optional":false}},"tsOptionsSort":["options","volume"],"tsOptionsStr":"{options?: Options;volume: string;}"}],"command":"podman volume exists","options":{}};
+
+  type Options = {
   };
 
-  type Options = {};
-
-  export type optionsArgument = { options?: Options; volume: string };
+  export type optionsArgument =
+    | {options?: Options;volume: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -63,4 +33,5 @@ export namespace modPodmanVolumeExists {
 
     return parseValues;
   }
+
 }

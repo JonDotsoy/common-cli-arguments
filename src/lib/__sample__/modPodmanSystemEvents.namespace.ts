@@ -1,34 +1,5 @@
 export namespace modPodmanSystemEvents {
-  const conf = {
-    usages: ["podman system events [options]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-        ],
-        tsOptions: { options: { kind: "Options", optional: true } },
-        tsOptionsSort: ["options"],
-        tsOptionsStr: "{options?: Options;}",
-      },
-    ],
-    command: "podman system events",
-    options: {
-      filter: { keyName: "filter", flag: "--filter", typeValue: "stringArray" },
-      format: { keyName: "format", flag: "--format", typeValue: "string" },
-      noTrunc: { keyName: "noTrunc", flag: "--no-trunc" },
-      since: { keyName: "since", flag: "--since", typeValue: "string" },
-      stream: { keyName: "stream", flag: "--stream" },
-      until: { keyName: "until", flag: "--until", typeValue: "string" },
-    },
-  };
+  const conf = {"usages":["podman system events [options]"],"usageMatrix":[{"argsStr":["[options]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true}},"tsOptionsSort":["options"],"tsOptionsStr":"{options?: Options;}"}],"command":"podman system events","options":{"filter":{"keyName":"filter","flag":"--filter","typeValue":"stringArray"},"format":{"keyName":"format","flag":"--format","typeValue":"string"},"noTrunc":{"keyName":"noTrunc","flag":"--no-trunc"},"since":{"keyName":"since","flag":"--since","typeValue":"string"},"stream":{"keyName":"stream","flag":"--stream"},"until":{"keyName":"until","flag":"--until","typeValue":"string"}}};
 
   type Options = {
     filter?: string[]; // stringArray
@@ -39,11 +10,13 @@ export namespace modPodmanSystemEvents {
     until?: string; // string
   };
 
-  export type optionsArgument = { options?: Options };
+  export type optionsArgument =
+    | {options?: Options;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -66,4 +39,5 @@ export namespace modPodmanSystemEvents {
 
     return parseValues;
   }
+
 }

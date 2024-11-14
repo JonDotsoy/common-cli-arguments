@@ -1,50 +1,5 @@
 export namespace modPodmanVolumeRm {
-  const conf = {
-    usages: ["podman volume rm [options] VOLUME [VOLUME...]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]", "VOLUME", "[VOLUME...]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "volume",
-            literal: "VOLUME",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-          {
-            keyword: "volume",
-            literal: "[VOLUME...]",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: true,
-            isSpread: true,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          volume: { kind: "string[]", optional: false },
-        },
-        tsOptionsSort: ["options", "volume"],
-        tsOptionsStr: "{options?: Options;volume: string[];}",
-      },
-    ],
-    command: "podman volume rm",
-    options: {
-      all: { keyName: "all", flag: "--all" },
-      force: { keyName: "force", flag: "--force" },
-      time: { keyName: "time", flag: "--time", typeValue: "int" },
-    },
-  };
+  const conf = {"usages":["podman volume rm [options] VOLUME [VOLUME...]"],"usageMatrix":[{"argsStr":["[options]","VOLUME","[VOLUME...]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"volume","literal":"VOLUME","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false},{"keyword":"volume","literal":"[VOLUME...]","kind":"argument","isOptionsArg":false,"isOptional":true,"isSpread":true}],"tsOptions":{"options":{"kind":"Options","optional":true},"volume":{"kind":"string[]","optional":false}},"tsOptionsSort":["options","volume"],"tsOptionsStr":"{options?: Options;volume: string[];}"}],"command":"podman volume rm","options":{"all":{"keyName":"all","flag":"--all"},"force":{"keyName":"force","flag":"--force"},"time":{"keyName":"time","flag":"--time","typeValue":"int"}}};
 
   type Options = {
     all?: boolean; // [null]
@@ -52,11 +7,13 @@ export namespace modPodmanVolumeRm {
     time?: number; // int
   };
 
-  export type optionsArgument = { options?: Options; volume: string[] };
+  export type optionsArgument =
+    | {options?: Options;volume: string[];}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -79,4 +36,5 @@ export namespace modPodmanVolumeRm {
 
     return parseValues;
   }
+
 }

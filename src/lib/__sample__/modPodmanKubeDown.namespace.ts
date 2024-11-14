@@ -1,48 +1,17 @@
 export namespace modPodmanKubeDown {
-  const conf = {
-    usages: ["podman kube down [options] KUBEFILE|-"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]", "KUBEFILE|-"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "kubefile",
-            literal: "KUBEFILE|-",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          kubefile: { kind: "string", optional: false },
-        },
-        tsOptionsSort: ["options", "kubefile"],
-        tsOptionsStr: "{options?: Options;kubefile: string;}",
-      },
-    ],
-    command: "podman kube down",
-    options: { force: { keyName: "force", flag: "--force" } },
-  };
+  const conf = {"usages":["podman kube down [options] KUBEFILE|-"],"usageMatrix":[{"argsStr":["[options]","KUBEFILE|-"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"kubefile","literal":"KUBEFILE|-","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"kubefile":{"kind":"string","optional":false}},"tsOptionsSort":["options","kubefile"],"tsOptionsStr":"{options?: Options;kubefile: string;}"}],"command":"podman kube down","options":{"force":{"keyName":"force","flag":"--force"}}};
 
   type Options = {
     force?: boolean; // [null]
   };
 
-  export type optionsArgument = { options?: Options; kubefile: string };
+  export type optionsArgument =
+    | {options?: Options;kubefile: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -65,4 +34,5 @@ export namespace modPodmanKubeDown {
 
     return parseValues;
   }
+
 }

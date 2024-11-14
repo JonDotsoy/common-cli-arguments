@@ -1,65 +1,5 @@
 export namespace modPodmanLogin {
-  const conf = {
-    usages: ["podman login [options] [REGISTRY]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]", "[REGISTRY]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "registry",
-            literal: "[REGISTRY]",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: true,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          registry: { kind: "string", optional: true },
-        },
-        tsOptionsSort: ["options", "registry"],
-        tsOptionsStr: "{options?: Options;registry?: string;}",
-      },
-    ],
-    command: "podman login",
-    options: {
-      authfile: {
-        keyName: "authfile",
-        flag: "--authfile",
-        typeValue: "string",
-      },
-      certDir: { keyName: "certDir", flag: "--cert-dir", typeValue: "string" },
-      compatAuthFile: {
-        keyName: "compatAuthFile",
-        flag: "--compat-auth-file",
-        typeValue: "string",
-      },
-      getLogin: { keyName: "getLogin", flag: "--get-login" },
-      password: {
-        keyName: "password",
-        flag: "--password",
-        typeValue: "string",
-      },
-      passwordStdin: { keyName: "passwordStdin", flag: "--password-stdin" },
-      secret: { keyName: "secret", flag: "--secret", typeValue: "string" },
-      tlsVerify: { keyName: "tlsVerify", flag: "--tls-verify" },
-      username: {
-        keyName: "username",
-        flag: "--username",
-        typeValue: "string",
-      },
-      verbose: { keyName: "verbose", flag: "--verbose" },
-    },
-  };
+  const conf = {"usages":["podman login [options] [REGISTRY]"],"usageMatrix":[{"argsStr":["[options]","[REGISTRY]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"registry","literal":"[REGISTRY]","kind":"argument","isOptionsArg":false,"isOptional":true,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"registry":{"kind":"string","optional":true}},"tsOptionsSort":["options","registry"],"tsOptionsStr":"{options?: Options;registry?: string;}"}],"command":"podman login","options":{"authfile":{"keyName":"authfile","flag":"--authfile","typeValue":"string"},"certDir":{"keyName":"certDir","flag":"--cert-dir","typeValue":"string"},"compatAuthFile":{"keyName":"compatAuthFile","flag":"--compat-auth-file","typeValue":"string"},"getLogin":{"keyName":"getLogin","flag":"--get-login"},"password":{"keyName":"password","flag":"--password","typeValue":"string"},"passwordStdin":{"keyName":"passwordStdin","flag":"--password-stdin"},"secret":{"keyName":"secret","flag":"--secret","typeValue":"string"},"tlsVerify":{"keyName":"tlsVerify","flag":"--tls-verify"},"username":{"keyName":"username","flag":"--username","typeValue":"string"},"verbose":{"keyName":"verbose","flag":"--verbose"}}};
 
   type Options = {
     authfile?: string; // string
@@ -74,11 +14,13 @@ export namespace modPodmanLogin {
     verbose?: boolean; // [null]
   };
 
-  export type optionsArgument = { options?: Options; registry?: string };
+  export type optionsArgument =
+    | {options?: Options;registry?: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -101,4 +43,5 @@ export namespace modPodmanLogin {
 
     return parseValues;
   }
+
 }

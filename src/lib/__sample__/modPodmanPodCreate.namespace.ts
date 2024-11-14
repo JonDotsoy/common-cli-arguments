@@ -1,207 +1,5 @@
 export namespace modPodmanPodCreate {
-  const conf = {
-    usages: ["podman pod create [options] [NAME]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]", "[NAME]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "name",
-            literal: "[NAME]",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: true,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          name: { kind: "string", optional: true },
-        },
-        tsOptionsSort: ["options", "name"],
-        tsOptionsStr: "{options?: Options;name?: string;}",
-      },
-    ],
-    command: "podman pod create",
-    options: {
-      addHost: { keyName: "addHost", flag: "--add-host", typeValue: "strings" },
-      blkioWeight: {
-        keyName: "blkioWeight",
-        flag: "--blkio-weight",
-        typeValue: "string",
-      },
-      blkioWeightDevice: {
-        keyName: "blkioWeightDevice",
-        flag: "--blkio-weight-device",
-        typeValue: "DEVICE_NAME:WEIGHT",
-      },
-      cgroupParent: {
-        keyName: "cgroupParent",
-        flag: "--cgroup-parent",
-        typeValue: "string",
-      },
-      cpuShares: {
-        keyName: "cpuShares",
-        flag: "--cpu-shares",
-        typeValue: "uint",
-      },
-      cpus: { keyName: "cpus", flag: "--cpus", typeValue: "float" },
-      cpusetCpus: {
-        keyName: "cpusetCpus",
-        flag: "--cpuset-cpus",
-        typeValue: "string",
-      },
-      cpusetMems: {
-        keyName: "cpusetMems",
-        flag: "--cpuset-mems",
-        typeValue: "string",
-      },
-      device: { keyName: "device", flag: "--device", typeValue: "stringArray" },
-      deviceReadBps: {
-        keyName: "deviceReadBps",
-        flag: "--device-read-bps",
-        typeValue: "stringArray",
-      },
-      deviceWriteBps: {
-        keyName: "deviceWriteBps",
-        flag: "--device-write-bps",
-        typeValue: "stringArray",
-      },
-      dns: { keyName: "dns", flag: "--dns", typeValue: "strings" },
-      dnsOption: {
-        keyName: "dnsOption",
-        flag: "--dns-option",
-        typeValue: "strings",
-      },
-      dnsSearch: {
-        keyName: "dnsSearch",
-        flag: "--dns-search",
-        typeValue: "strings",
-      },
-      exitPolicy: {
-        keyName: "exitPolicy",
-        flag: "--exit-policy",
-        typeValue: "string",
-      },
-      gidmap: { keyName: "gidmap", flag: "--gidmap", typeValue: "strings" },
-      gpus: { keyName: "gpus", flag: "--gpus", typeValue: "strings" },
-      hostname: {
-        keyName: "hostname",
-        flag: "--hostname",
-        typeValue: "string",
-      },
-      infra: { keyName: "infra", flag: "--infra" },
-      infraCommand: {
-        keyName: "infraCommand",
-        flag: "--infra-command",
-        typeValue: "string",
-      },
-      infraConmonPidfile: {
-        keyName: "infraConmonPidfile",
-        flag: "--infra-conmon-pidfile",
-        typeValue: "string",
-      },
-      infraImage: {
-        keyName: "infraImage",
-        flag: "--infra-image",
-        typeValue: "string",
-      },
-      infraName: {
-        keyName: "infraName",
-        flag: "--infra-name",
-        typeValue: "string",
-      },
-      ip: { keyName: "ip", flag: "--ip", typeValue: "string" },
-      ip6: { keyName: "ip6", flag: "--ip6", typeValue: "string" },
-      label: { keyName: "label", flag: "--label", typeValue: "stringArray" },
-      labelFile: {
-        keyName: "labelFile",
-        flag: "--label-file",
-        typeValue: "stringArray",
-      },
-      macAddress: {
-        keyName: "macAddress",
-        flag: "--mac-address",
-        typeValue: "string",
-      },
-      memory: {
-        keyName: "memory",
-        flag: "--memory",
-        typeValue: "<number>[<unit>]",
-      },
-      memorySwap: {
-        keyName: "memorySwap",
-        flag: "--memory-swap",
-        typeValue: "string",
-      },
-      name: { keyName: "name", flag: "--name", typeValue: "string" },
-      network: {
-        keyName: "network",
-        flag: "--network",
-        typeValue: "stringArray",
-      },
-      networkAlias: {
-        keyName: "networkAlias",
-        flag: "--network-alias",
-        typeValue: "strings",
-      },
-      noHosts: { keyName: "noHosts", flag: "--no-hosts" },
-      pid: { keyName: "pid", flag: "--pid", typeValue: "string" },
-      podIdFile: {
-        keyName: "podIdFile",
-        flag: "--pod-id-file",
-        typeValue: "string",
-      },
-      publish: { keyName: "publish", flag: "--publish", typeValue: "strings" },
-      replace: { keyName: "replace", flag: "--replace" },
-      restart: { keyName: "restart", flag: "--restart", typeValue: "string" },
-      securityOpt: {
-        keyName: "securityOpt",
-        flag: "--security-opt",
-        typeValue: "stringArray",
-      },
-      share: { keyName: "share", flag: "--share", typeValue: "string" },
-      shareParent: { keyName: "shareParent", flag: "--share-parent" },
-      shmSize: {
-        keyName: "shmSize",
-        flag: "--shm-size",
-        typeValue: "<number>[<unit>]",
-      },
-      shmSizeSystemd: {
-        keyName: "shmSizeSystemd",
-        flag: "--shm-size-systemd",
-        typeValue: "<number>[<unit>]",
-      },
-      subgidname: {
-        keyName: "subgidname",
-        flag: "--subgidname",
-        typeValue: "string",
-      },
-      subuidname: {
-        keyName: "subuidname",
-        flag: "--subuidname",
-        typeValue: "string",
-      },
-      sysctl: { keyName: "sysctl", flag: "--sysctl", typeValue: "strings" },
-      uidmap: { keyName: "uidmap", flag: "--uidmap", typeValue: "strings" },
-      userns: { keyName: "userns", flag: "--userns", typeValue: "string" },
-      uts: { keyName: "uts", flag: "--uts", typeValue: "string" },
-      volume: { keyName: "volume", flag: "--volume", typeValue: "stringArray" },
-      volumesFrom: {
-        keyName: "volumesFrom",
-        flag: "--volumes-from",
-        typeValue: "stringArray",
-      },
-    },
-  };
+  const conf = {"usages":["podman pod create [options] [NAME]"],"usageMatrix":[{"argsStr":["[options]","[NAME]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"name","literal":"[NAME]","kind":"argument","isOptionsArg":false,"isOptional":true,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"name":{"kind":"string","optional":true}},"tsOptionsSort":["options","name"],"tsOptionsStr":"{options?: Options;name?: string;}"}],"command":"podman pod create","options":{"addHost":{"keyName":"addHost","flag":"--add-host","typeValue":"strings"},"blkioWeight":{"keyName":"blkioWeight","flag":"--blkio-weight","typeValue":"string"},"blkioWeightDevice":{"keyName":"blkioWeightDevice","flag":"--blkio-weight-device","typeValue":"DEVICE_NAME:WEIGHT"},"cgroupParent":{"keyName":"cgroupParent","flag":"--cgroup-parent","typeValue":"string"},"cpuShares":{"keyName":"cpuShares","flag":"--cpu-shares","typeValue":"uint"},"cpus":{"keyName":"cpus","flag":"--cpus","typeValue":"float"},"cpusetCpus":{"keyName":"cpusetCpus","flag":"--cpuset-cpus","typeValue":"string"},"cpusetMems":{"keyName":"cpusetMems","flag":"--cpuset-mems","typeValue":"string"},"device":{"keyName":"device","flag":"--device","typeValue":"stringArray"},"deviceReadBps":{"keyName":"deviceReadBps","flag":"--device-read-bps","typeValue":"stringArray"},"deviceWriteBps":{"keyName":"deviceWriteBps","flag":"--device-write-bps","typeValue":"stringArray"},"dns":{"keyName":"dns","flag":"--dns","typeValue":"strings"},"dnsOption":{"keyName":"dnsOption","flag":"--dns-option","typeValue":"strings"},"dnsSearch":{"keyName":"dnsSearch","flag":"--dns-search","typeValue":"strings"},"exitPolicy":{"keyName":"exitPolicy","flag":"--exit-policy","typeValue":"string"},"gidmap":{"keyName":"gidmap","flag":"--gidmap","typeValue":"strings"},"gpus":{"keyName":"gpus","flag":"--gpus","typeValue":"strings"},"hostname":{"keyName":"hostname","flag":"--hostname","typeValue":"string"},"infra":{"keyName":"infra","flag":"--infra"},"infraCommand":{"keyName":"infraCommand","flag":"--infra-command","typeValue":"string"},"infraConmonPidfile":{"keyName":"infraConmonPidfile","flag":"--infra-conmon-pidfile","typeValue":"string"},"infraImage":{"keyName":"infraImage","flag":"--infra-image","typeValue":"string"},"infraName":{"keyName":"infraName","flag":"--infra-name","typeValue":"string"},"ip":{"keyName":"ip","flag":"--ip","typeValue":"string"},"ip6":{"keyName":"ip6","flag":"--ip6","typeValue":"string"},"label":{"keyName":"label","flag":"--label","typeValue":"stringArray"},"labelFile":{"keyName":"labelFile","flag":"--label-file","typeValue":"stringArray"},"macAddress":{"keyName":"macAddress","flag":"--mac-address","typeValue":"string"},"memory":{"keyName":"memory","flag":"--memory","typeValue":"<number>[<unit>]"},"memorySwap":{"keyName":"memorySwap","flag":"--memory-swap","typeValue":"string"},"name":{"keyName":"name","flag":"--name","typeValue":"string"},"network":{"keyName":"network","flag":"--network","typeValue":"stringArray"},"networkAlias":{"keyName":"networkAlias","flag":"--network-alias","typeValue":"strings"},"noHosts":{"keyName":"noHosts","flag":"--no-hosts"},"pid":{"keyName":"pid","flag":"--pid","typeValue":"string"},"podIdFile":{"keyName":"podIdFile","flag":"--pod-id-file","typeValue":"string"},"publish":{"keyName":"publish","flag":"--publish","typeValue":"strings"},"replace":{"keyName":"replace","flag":"--replace"},"restart":{"keyName":"restart","flag":"--restart","typeValue":"string"},"securityOpt":{"keyName":"securityOpt","flag":"--security-opt","typeValue":"stringArray"},"share":{"keyName":"share","flag":"--share","typeValue":"string"},"shareParent":{"keyName":"shareParent","flag":"--share-parent"},"shmSize":{"keyName":"shmSize","flag":"--shm-size","typeValue":"<number>[<unit>]"},"shmSizeSystemd":{"keyName":"shmSizeSystemd","flag":"--shm-size-systemd","typeValue":"<number>[<unit>]"},"subgidname":{"keyName":"subgidname","flag":"--subgidname","typeValue":"string"},"subuidname":{"keyName":"subuidname","flag":"--subuidname","typeValue":"string"},"sysctl":{"keyName":"sysctl","flag":"--sysctl","typeValue":"strings"},"uidmap":{"keyName":"uidmap","flag":"--uidmap","typeValue":"strings"},"userns":{"keyName":"userns","flag":"--userns","typeValue":"string"},"uts":{"keyName":"uts","flag":"--uts","typeValue":"string"},"volume":{"keyName":"volume","flag":"--volume","typeValue":"stringArray"},"volumesFrom":{"keyName":"volumesFrom","flag":"--volumes-from","typeValue":"stringArray"}}};
 
   type Options = {
     addHost?: string[]; // strings
@@ -258,11 +56,13 @@ export namespace modPodmanPodCreate {
     volumesFrom?: string[]; // stringArray
   };
 
-  export type optionsArgument = { options?: Options; name?: string };
+  export type optionsArgument =
+    | {options?: Options;name?: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -285,4 +85,5 @@ export namespace modPodmanPodCreate {
 
     return parseValues;
   }
+
 }

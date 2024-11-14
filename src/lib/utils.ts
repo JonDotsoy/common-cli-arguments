@@ -366,7 +366,7 @@ async function* generateCommandLibLines(commandsObject: unknown, dest: URL) {
       const keywordMod = sanitizeKeyword(`mod-${pre ?? ""}${command}`);
       const keyword = sanitizeKeyword(`${pre ?? ""}${command}`);
       const namespaceRelativeTsPath = `./${keywordMod}.namespace.ts`;
-      const namespaceRelativePath = `./${keywordMod}.namespace`;
+      const namespaceRelativePath = `./${keywordMod}.namespace.js`;
 
       const namespaceSource = generateNameSpaceToFunction(
         keywordMod,
@@ -394,7 +394,7 @@ async function* generateCommandLibLines(commandsObject: unknown, dest: URL) {
       yield* genLinesCommand(
         `${pre ?? ""}${command}.`,
         get(commands, command, "commands"),
-        `${command} `,
+        `${pathCommands}${command} `,
         keyword,
       );
     }

@@ -1,41 +1,18 @@
 export namespace modPodmanLoad {
-  const conf = {
-    usages: ["podman load [options]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-        ],
-        tsOptions: { options: { kind: "Options", optional: true } },
-        tsOptionsSort: ["options"],
-        tsOptionsStr: "{options?: Options;}",
-      },
-    ],
-    command: "podman load",
-    options: {
-      input: { keyName: "input", flag: "--input", typeValue: "string" },
-      quiet: { keyName: "quiet", flag: "--quiet" },
-    },
-  };
+  const conf = {"usages":["podman load [options]"],"usageMatrix":[{"argsStr":["[options]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true}},"tsOptionsSort":["options"],"tsOptionsStr":"{options?: Options;}"}],"command":"podman load","options":{"input":{"keyName":"input","flag":"--input","typeValue":"string"},"quiet":{"keyName":"quiet","flag":"--quiet"}}};
 
   type Options = {
     input?: string; // string
     quiet?: boolean; // [null]
   };
 
-  export type optionsArgument = { options?: Options };
+  export type optionsArgument =
+    | {options?: Options;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -58,4 +35,5 @@ export namespace modPodmanLoad {
 
     return parseValues;
   }
+
 }

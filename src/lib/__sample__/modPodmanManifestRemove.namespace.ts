@@ -1,59 +1,16 @@
 export namespace modPodmanManifestRemove {
-  const conf = {
-    usages: ["podman manifest remove LIST IMAGE"],
-    usageMatrix: [
-      {
-        argsStr: ["LIST", "IMAGE"],
-        args: [
-          {
-            keyword: "options",
-            literal: "options",
-            kind: "options",
-            isOptional: true,
-            isOptionsArg: true,
-            isSpread: false,
-          },
-          {
-            keyword: "list",
-            literal: "LIST",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-          {
-            keyword: "image",
-            literal: "IMAGE",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          list: { kind: "string", optional: false },
-          image: { kind: "string", optional: false },
-        },
-        tsOptionsSort: ["options", "list", "image"],
-        tsOptionsStr: "{options?: Options;list: string;image: string;}",
-      },
-    ],
-    command: "podman manifest remove",
-    options: {},
+  const conf = {"usages":["podman manifest remove LIST IMAGE"],"usageMatrix":[{"argsStr":["LIST","IMAGE"],"args":[{"keyword":"options","literal":"options","kind":"options","isOptional":true,"isOptionsArg":true,"isSpread":false},{"keyword":"list","literal":"LIST","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false},{"keyword":"image","literal":"IMAGE","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"list":{"kind":"string","optional":false},"image":{"kind":"string","optional":false}},"tsOptionsSort":["options","list","image"],"tsOptionsStr":"{options?: Options;list: string;image: string;}"}],"command":"podman manifest remove","options":{}};
+
+  type Options = {
   };
 
-  type Options = {};
-
-  export type optionsArgument = {
-    options?: Options;
-    list: string;
-    image: string;
-  };
+  export type optionsArgument =
+    | {options?: Options;list: string;image: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -76,4 +33,5 @@ export namespace modPodmanManifestRemove {
 
     return parseValues;
   }
+
 }

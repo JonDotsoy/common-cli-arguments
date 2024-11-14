@@ -1,61 +1,17 @@
 export namespace modPodmanContainerPort {
-  const conf = {
-    usages: ["podman container port [options] CONTAINER [PORT]"],
-    usageMatrix: [
-      {
-        argsStr: ["[options]", "CONTAINER", "[PORT]"],
-        args: [
-          {
-            keyword: "options",
-            literal: "[options]",
-            kind: "options",
-            isOptionsArg: true,
-            isOptional: true,
-            isSpread: false,
-          },
-          {
-            keyword: "container",
-            literal: "CONTAINER",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-          {
-            keyword: "port",
-            literal: "[PORT]",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: true,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          container: { kind: "string", optional: false },
-          port: { kind: "string", optional: true },
-        },
-        tsOptionsSort: ["options", "container", "port"],
-        tsOptionsStr: "{options?: Options;container: string;port?: string;}",
-      },
-    ],
-    command: "podman container port",
-    options: { all: { keyName: "all", flag: "--all" } },
-  };
+  const conf = {"usages":["podman container port [options] CONTAINER [PORT]"],"usageMatrix":[{"argsStr":["[options]","CONTAINER","[PORT]"],"args":[{"keyword":"options","literal":"[options]","kind":"options","isOptionsArg":true,"isOptional":true,"isSpread":false},{"keyword":"container","literal":"CONTAINER","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false},{"keyword":"port","literal":"[PORT]","kind":"argument","isOptionsArg":false,"isOptional":true,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"container":{"kind":"string","optional":false},"port":{"kind":"string","optional":true}},"tsOptionsSort":["options","container","port"],"tsOptionsStr":"{options?: Options;container: string;port?: string;}"}],"command":"podman container port","options":{"all":{"keyName":"all","flag":"--all"}}};
 
   type Options = {
     all?: boolean; // [null]
   };
 
-  export type optionsArgument = {
-    options?: Options;
-    container: string;
-    port?: string;
-  };
+  export type optionsArgument =
+    | {options?: Options;container: string;port?: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -78,4 +34,5 @@ export namespace modPodmanContainerPort {
 
     return parseValues;
   }
+
 }

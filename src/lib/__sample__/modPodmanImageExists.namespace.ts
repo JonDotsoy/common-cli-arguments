@@ -1,46 +1,16 @@
 export namespace modPodmanImageExists {
-  const conf = {
-    usages: ["podman image exists IMAGE"],
-    usageMatrix: [
-      {
-        argsStr: ["IMAGE"],
-        args: [
-          {
-            keyword: "options",
-            literal: "options",
-            kind: "options",
-            isOptional: true,
-            isOptionsArg: true,
-            isSpread: false,
-          },
-          {
-            keyword: "image",
-            literal: "IMAGE",
-            kind: "argument",
-            isOptionsArg: false,
-            isOptional: false,
-            isSpread: false,
-          },
-        ],
-        tsOptions: {
-          options: { kind: "Options", optional: true },
-          image: { kind: "string", optional: false },
-        },
-        tsOptionsSort: ["options", "image"],
-        tsOptionsStr: "{options?: Options;image: string;}",
-      },
-    ],
-    command: "podman image exists",
-    options: {},
+  const conf = {"usages":["podman image exists IMAGE"],"usageMatrix":[{"argsStr":["IMAGE"],"args":[{"keyword":"options","literal":"options","kind":"options","isOptional":true,"isOptionsArg":true,"isSpread":false},{"keyword":"image","literal":"IMAGE","kind":"argument","isOptionsArg":false,"isOptional":false,"isSpread":false}],"tsOptions":{"options":{"kind":"Options","optional":true},"image":{"kind":"string","optional":false}},"tsOptionsSort":["options","image"],"tsOptionsStr":"{options?: Options;image: string;}"}],"command":"podman image exists","options":{}};
+
+  type Options = {
   };
 
-  type Options = {};
-
-  export type optionsArgument = { options?: Options; image: string };
+  export type optionsArgument =
+    | {options?: Options;image: string;}
+  ;
 
   export function parseOptionsArgument(options: optionsArgument): string[] {
     const optionsArguments = Object.entries(options.options ?? {}).map(
-      ([key, value]) => {
+      ([key, value]:[string,any]) => {
         return [
           `${Reflect.get(conf.options, key).flag}`,
           ...(value === true ? [] : [`${value}`]),
@@ -63,4 +33,5 @@ export namespace modPodmanImageExists {
 
     return parseValues;
   }
+
 }
